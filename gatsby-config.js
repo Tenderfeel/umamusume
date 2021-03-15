@@ -1,3 +1,8 @@
+
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`
+});
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -31,6 +36,28 @@ module.exports = {
     `gatsby-plugin-gatsby-cloud`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    `gatsby-plugin-offline`,
+    // microCMS
+    {
+      resolve: "gatsby-source-microcms",
+      options: {
+        apiKey: process.env.API_KEY,
+        serviceId: "umamusume",
+        apis: [
+          {
+            endpoint: "character",
+          },
+          {
+            endpoint: "skill"
+          },
+          {
+            endpoint: "support-card"
+          },
+          {
+            endpoint: "race-course"
+          }
+        ],
+      },
+    },
   ],
 }
