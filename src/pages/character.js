@@ -1,3 +1,6 @@
+/**
+ * キャラ一覧ページ
+ */
 import React from "react"
 import { graphql, Link } from "gatsby"
 

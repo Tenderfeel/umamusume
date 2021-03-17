@@ -1,3 +1,6 @@
+/**
+ * キャラ詳細ページ
+ */
 import React from "react"
 import { graphql, Link } from "gatsby"
 
@@ -127,6 +130,12 @@ export const query = graphql`
     microcmsCharacter {
         name
         rare
+        thumbnail {
+          url
+          height
+          width
+        }
+        generation
         surface {
           dart
           turf

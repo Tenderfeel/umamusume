@@ -5,9 +5,9 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `ウマ娘DB`,
+    description: `相性のいいカードとか見れたら便利やろなと思って作ってみたツール`,
+    author: `@Tenderfeel`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -54,9 +54,31 @@ module.exports = {
             endpoint: "support-card"
           },
           {
-            endpoint: "race-course"
+            endpoint: "racecourse"
           }
         ],
+      },
+    },
+    // charkra
+    {
+      resolve: "@chakra-ui/gatsby-plugin",
+      options: {
+        /**
+         * @property {boolean} [isResettingCSS=true]
+         * if `false`, this plugin will not use `<CSSReset />
+         */
+        isResettingCSS: true,
+        /**
+         * @property {boolean} [isUsingColorMode=true]
+         * if `false`, this plugin will not use <ColorModeProvider />
+         */
+        isUsingColorMode: true,
+        /**
+         * @property {number} [portalZIndex=40]
+         * The z-index to apply to all portal nodes. This is useful
+         * if your app uses a lot z-index to position elements.
+         */
+        portalZIndex: 40,
       },
     },
   ],
