@@ -19,8 +19,8 @@ interface PageContainerProps {
 
 function PageContainer(props: PageContainerProps) {
   const {  frontMatter, children, pagination } = props
-  const {title, description } = frontMatter
-  
+  const { title, description } = frontMatter
+
   return (
     <>
       <SEO title={title} description={description} />
@@ -41,7 +41,11 @@ function PageContainer(props: PageContainerProps) {
               minH="76vh"
             >
               <PageTransition>
-                <chakra.h1 tabIndex={-1} outline={0} apply="mdx.h1">
+                <chakra.h1 tabIndex={-1} outline={0}
+                mb={6}
+                fontWeight="bold"
+                fontSize="xl"
+                >
                   {title}
                 </chakra.h1>
                 {children}
