@@ -138,8 +138,8 @@ const CharacterPage = ({ data }) => {
 export default CharacterPage
 
 export const query = graphql`
-  query {
-    microcmsCharacter {
+  query($id: String!) {
+    microcmsCharacter(id: { eq: $id }) {
         name
         rare
         thumbnail {

@@ -22,8 +22,8 @@ const SkillDetailPage = ({ data }) =>  {
 export default SkillDetailPage
 
 export const query = graphql`
-  query {
-    microcmsSkill {
+  query($id: String!) {
+    microcmsSkill(id: { eq: $id }) {
       description
       name
       point

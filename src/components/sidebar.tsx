@@ -16,12 +16,14 @@ const mainNavLinks = [
     href: "/character",
     label: "キャラクター",
   },
+  {
+    href: "/skill",
+    label: "スキル"
+  }
 ]
 
 const Sidebar = () => {
   const ref = React.useRef<HTMLDivElement>(null)
-  const color = useColorModeValue("gray.700", "whiteAlpha.900")
-  console.log(color)
   const activeStyle = {
     display: 'block',
     background: useColorModeValue("teal.50", "rgba(48, 140, 122, 0.3)"),

@@ -9,17 +9,19 @@ const frontMatter = {
   description: `ウマ娘やサポートカードが使えるスキル一覧です`
 }
 
-const SkillPage = ({ data }) => (
-  <Layout frontMatter={frontMatter}>
-    <ul>
-      {data.allMicrocmsSkill.edges.map(({ node }) => (
-        <li key={node.skillId}>
-          <Link to={`/skill/${node.skillId}`}>{node.name}</Link>
-        </li>
-      ))}
-    </ul>
-  </Layout>
-)
+const SkillPage = ({ data }) => {
+  return (
+    <Layout frontMatter={frontMatter}>
+      <ul>
+        {data.allMicrocmsSkill.edges.map(({ node }) => (
+          <li key={node.skillId}>
+            <Link to={`/skill/${node.skillId}`}>{node.name}</Link>
+          </li>
+        ))}
+      </ul>
+    </Layout>
+  )
+}
 
 export default SkillPage
 
