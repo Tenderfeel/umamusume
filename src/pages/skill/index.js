@@ -4,9 +4,13 @@ import { graphql, Link } from "gatsby"
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
 
+const frontMatter = {
+  title: 'スキル',
+  description: `ウマ娘やサポートカードが使えるスキル一覧です`
+}
+
 const SkillPage = ({ data }) => (
-  <Layout>
-    <SEO title="スキル" />
+  <Layout frontMatter={frontMatter}>
     <ul>
       {data.allMicrocmsSkill.edges.map(({ node }) => (
         <li key={node.skillId}>
