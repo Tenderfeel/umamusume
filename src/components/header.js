@@ -3,7 +3,7 @@
  */
 import * as React from "react"
 import PropTypes from "prop-types"
-import { Link } from "gatsby"
+import { useStaticQuery, graphql, Link } from "gatsby"
 import {
   chakra,
   Flex,
@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react"
 import { FaMoon, FaSun } from "react-icons/fa"
 
-const Header = ({ siteTitle }) => {
+const Header = () => {
   const ref = React.useRef(null)
   const [y, setY] = React.useState(0)
   const { height = 0 } = ref.current?.getBoundingClientRect() ?? {}
@@ -22,6 +22,15 @@ const Header = ({ siteTitle }) => {
   const text = useColorModeValue("dark", "light")
   const SwitchIcon = useColorModeValue(FaMoon, FaSun)
   const { toggleColorMode: toggleMode } = useColorMode()
+  const data = useStaticQuery(graphql`
+    query SiteTitleQuery {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `)
 
   return (
     <chakra.header
@@ -48,7 +57,7 @@ const Header = ({ siteTitle }) => {
                 fontSize="1rem"
                 minWidth="5rem"
               >
-                {siteTitle}
+                {data.site.siteMetadata?.title}
               </chakra.span>
           </Link>
         </Flex>

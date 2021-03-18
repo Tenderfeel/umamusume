@@ -7,9 +7,13 @@ import { graphql, Link } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
+const frontMatter = {
+  title: 'キャラクター',
+  description: '現在実装済みの育成ウマ娘一覧'
+}
+
 const CharacterPage = ({ data }) => (
-  <Layout>
-    <SEO title="Characters" />
+  <Layout frontMatter={frontMatter}>
     <ul>
       {data.allMicrocmsCharacter.edges.map(({ node }) => (
         <li key={node.characterId}>

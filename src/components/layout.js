@@ -7,33 +7,14 @@
 
 import * as React from "react"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
-import { Box } from "@chakra-ui/react"
 
-import Header from "./header"
-import Footer from './footer'
-import Container from './container'
+import PageContainer from "./page-container"
 import "./layout.css"
 
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-
+const Layout = ({ children, frontMatter }) => {
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-      <Container as="main" className="main-content"
-      >
-        {children}
-      </Container>
-      <Footer />
+      <PageContainer frontMatter={frontMatter}>{children}</PageContainer>
     </>
   )
 }
