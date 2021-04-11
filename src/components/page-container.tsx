@@ -26,35 +26,28 @@ function PageContainer(props: PageContainerProps) {
       <SEO title={title} description={description} />
       <SkipNavLink zIndex={20}>Skip to Content</SkipNavLink>
       <Header />
-      <Container as="main" className="main-content">
-        <Box display={{ base: "block", md: "flex" }}>
+      <Container
+        pt="46px"
+        display={{ base: "block", md: "flex" }}
+      >
           <Sidebar />
           <div style={{ flex: 1 }}>
             <SkipNavContent />
             <Box
+               as="main" 
               id="content"
-              pt={3}
-              px={5}
-              mt="2rem"
+              overflow="hidden"
               mx="auto"
               maxW="48rem"
               minH="76vh"
             >
               <PageTransition>
-                <chakra.h1 tabIndex={-1} outline={0}
-                mb={6}
-                fontWeight="bold"
-                fontSize="xl"
-                >
-                  {title}
-                </chakra.h1>
                 {children}
               </PageTransition>
               {pagination || null}
             </Box>
             <Footer />
           </div>
-        </Box>
       </Container>
     </>
   )

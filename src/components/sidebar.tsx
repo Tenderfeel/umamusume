@@ -3,12 +3,9 @@ import { Link } from "gatsby"
 
 import {
   Box,
-  Flex,
   List,
   ListItem,
-  Center,
-  useColorModeValue,
-  chakra
+  useColorModeValue
 } from "@chakra-ui/react"
 
 const mainNavLinks = [
@@ -58,12 +55,12 @@ const Sidebar = () => {
         <ListItem key={item.label} rounded="md" overflow="hidden">
             <Link to={item.href}
               activeStyle={activeStyle}>
-              <chakra.div px="3"
+              <Box px="3"
                 py="1"
                 fontSize="sm"
                 fontWeight="500">
                 {item.label}
-              </chakra.div>
+              </Box>
             </Link>
         </ListItem>
       ))}

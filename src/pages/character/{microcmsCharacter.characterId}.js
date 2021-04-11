@@ -2,11 +2,17 @@
  * キャラ詳細ページ
  */
 import React from "react"
-import { graphql, Link } from "gatsby"
-import { chakra, Image } from "@chakra-ui/react"
+import { graphql } from "gatsby"
+import { chakra, Image, Flex, Box, Text, Table,
+  Tbody, Tr, Th, Td, VisuallyHidden,
+  Heading, Tag,　HStack } from "@chakra-ui/react"
 // import { StaticImage } from "gatsby-plugin-image"
 import Layout from "../../components/layout"
+import * as tableStyles from "../../components/table.module.css"
 
+import SEO from "../../components/seo"
+import Alphabet from '../../components/parts/alphabet'
+import SkillTable from '../../components/character/skill-table'
 
 const CharacterPage = ({ data }) => {
 
@@ -14,123 +20,145 @@ const CharacterPage = ({ data }) => {
     title: data.microcmsCharacter.name || 'ウマ娘',
     description: `${data.microcmsCharacter.name}の詳細情報`
   }
-  
+
+  const surface = data.microcmsCharacter.surface
+  const distance = data.microcmsCharacter.distance
+  const running = data.microcmsCharacter.running
+  const birthDay = data.microcmsCharacter.birthDay
+
   return (
     <Layout frontMatter={frontMatter}>
-      <Image
-      src={data.microcmsCharacter.thumbnail.url}
-      boxSize="100px"
-      alt=""
-    />
-      <chakra.h2>適性</chakra.h2>
-      <table>
-        <tbody>
-          <tr>
-            <th scope="row">バ場適性</th>
-            <td>
-              {data.microcmsCharacter.surface.turf}
-              <hr />
-              芝
-            </td>
-            <td>
-              {data.microcmsCharacter.surface.dart}
-              <hr />
-              ダート
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">距離適性</th>
-            <td>
-              {data.microcmsCharacter.distance.short}
-              <hr />
-              短距離
-            </td>
-            <td>
-              {data.microcmsCharacter.distance.mile}
-              <hr />
-              マイル
-            </td>
-            <td>
-              {data.microcmsCharacter.distance.middle}
-              <hr />
-              中距離
-            </td>
-            <td>
-              {data.microcmsCharacter.distance.long}
-              <hr />
-              長距離
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">脚質適性</th>
-            <td>
-              {data.microcmsCharacter.running.escape}
-              <hr />
-              逃げ
-            </td>
-            <td>
-              {data.microcmsCharacter.running.ahead}
-              <hr />
-              先行
-            </td>
-            <td>
-              {data.microcmsCharacter.running.forerunner}
-              <hr />
-              差し
-            </td>
-            <td>
-              {data.microcmsCharacter.running.pursuer}
-              <hr />
-              追込
-              </td>
-          </tr>
-        </tbody>
-      </table>
+      <SEO {...frontMatter} />
+      <Flex align="center" as="header" mt="2">
+        <Box order="2">
+          <chakra.h1 tabIndex={-1} outline={0}
+            mb={6}
+            fontWeight="bold"
+            fontSize="xl"
+            >
+              {frontMatter.title}
+          </chakra.h1>
+          <HStack>
+            <Text>
+              <Tag mr="2">初期レア</Tag>{data.microcmsCharacter.rare}
+            </Text>
+            <Text>
+              <Tag mr="2">誕生日</Tag>{birthDay.month}月{birthDay.day}日
+            </Text>
+            <Text>
+              <Tag mr="2">世代</Tag>{data.microcmsCharacter.generation}年
+            </Text>
+          </HStack>
+        </Box>
+        <Image
+          src={data.microcmsCharacter.thumbnail.url}
+          boxSize="100px"
+          objectFit="contain"
+          mr={2}
+          alt=""
+        />
+      </Flex>
+      <VisuallyHidden as="div"><h2>適性</h2></VisuallyHidden>
+      <Box marginTop="2" borderWidth="1px" borderRadius="lg" overflow="hidden">      
+      <Table className={tableStyles.statusTable}
+        sx={{
+          th: {
+            width: '20%'
+          },
+          td: { width: 'calc(100% / 5)'}
+        }}
+      >
+        <Tbody>
+          <Tr>
+            <Th scope="row">バ場適性</Th>
+            <Td>
+              <Alphabet value={surface.turf}></Alphabet>
+              <Text fontSize="sm">芝</Text>
+            </Td>
+            <Td>
+              <Alphabet value={surface.dart}></Alphabet>
+              <Text fontSize="sm">ダート</Text>
+            </Td>
+            <Td></Td>
+            <Td></Td>
+          </Tr>
+          <Tr>
+            <Th scope="row">距離適性</Th>
+            <Td>
+              <Alphabet value={distance.short}></Alphabet>
+              <Text fontSize="sm">短距離</Text>
+            </Td>
+            <Td>
+              <Alphabet value={distance.mile}></Alphabet>
+              <Text fontSize="sm">マイル</Text>
+            </Td>
+            <Td>
+              <Alphabet value={distance.middle}></Alphabet>
+              <Text fontSize="sm">中距離</Text>
+            </Td>
+            <Td>
+              <Alphabet value={distance.long}></Alphabet>
+              <Text fontSize="sm">長距離</Text>
+            </Td>
+          </Tr>
+          <Tr>
+            <Th scope="row">脚質適性</Th>
+            <Td>
+              <Alphabet value={running.escape}></Alphabet>
+              <Text fontSize="sm">逃げ</Text>
+            </Td>
+            <Td>
+              <Alphabet value={running.ahead}></Alphabet>
+              <Text fontSize="sm">先行</Text>
+            </Td>
+            <Td>
+              <Alphabet value={running.forerunner}></Alphabet>
+              <Text fontSize="sm">差し</Text>
+            </Td>
+            <Td>
+              <Alphabet value={running.pursuer}></Alphabet>
+              <Text fontSize="sm">追込</Text>
+              </Td>
+          </Tr>
+        </Tbody>
+      </Table>
+      </Box>
+      
+      <VisuallyHidden as="div"><h2>成長率</h2></VisuallyHidden>
+      <Box marginTop="2" borderWidth="1px" borderRadius="lg" overflow="hidden">      
+        <Table className={tableStyles.statusTable}
+          sx={{'th': { width: 'calc(100% / 5)'}}}>
+          <Tbody>
+            <Tr>
+              <Th scope="col">スピード</Th>
+              <Th scope="col">スタミナ</Th>
+              <Th scope="col">パワー</Th>
+              <Th scope="col">根性</Th>
+              <Th scope="col">賢さ</Th>
+            </Tr>
+            <Tr>
+              <Td>{data.microcmsCharacter.growthRate.speed || 0}%</Td>
+              <Td>{data.microcmsCharacter.growthRate.stamina || 0}%</Td>
+              <Td>{data.microcmsCharacter.growthRate.power || 0}%</Td>
+              <Td>{data.microcmsCharacter.growthRate.guts || 0}%</Td>
+              <Td>{data.microcmsCharacter.growthRate.int || 0}%</Td>
+            </Tr>
+          </Tbody>
+        </Table>
+      </Box>
   
-      <h2>成長率</h2>
-      <table>
-        <tbody>
-          <tr>
-            <th scope="col">スピード</th>
-            <th scope="col">スタミナ</th>
-            <th scope="col">パワー</th>
-            <th scope="col">根性</th>
-            <th scope="col">賢さ</th>
-          </tr>
-          <tr>
-            <td>{data.microcmsCharacter.growthRate.speed || 0}%</td>
-            <td>{data.microcmsCharacter.growthRate.stamina || 0}%</td>
-            <td>{data.microcmsCharacter.growthRate.power || 0}%</td>
-            <td>{data.microcmsCharacter.growthRate.guts || 0}%</td>
-            <td>{data.microcmsCharacter.growthRate.int || 0}%</td>
-          </tr>
-        </tbody>
-      </table>
-  
-      <h2>スキル</h2>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">覚醒Lv</th>
-            <th scope="col">スキル名/効果</th>
-            <th scope="col">Pt</th>
-          </tr>
-        </thead>
-        <tbody>
-        {data.microcmsCharacter.skills.map(({ awakeLv, skill }) => (
-          <tr key={skill.id}>
-            <td>{awakeLv}</td>
-            <td>
-              <Link to={`/skill/${skill.id}`}>{skill.name}</Link>
-              <p>{skill.description}</p>
-            </td>
-            <td>
-              {skill.point}
-            </td>
-          </tr>
-        ))}
-        </tbody>
-      </table>
+      <Heading 
+        size="sm"
+        marginTop="6"
+        marginBottom="2"
+        borderLeft="solid 5px"
+        borderBottom="solid 1px"
+        borderColor="teal"
+        px="2"
+        py="1"
+      >スキル</Heading>
+      
+      <SkillTable skills={data.microcmsCharacter.skills} />
     </Layout>
   )
 }
@@ -161,7 +189,10 @@ export const query = graphql`
             rare
             trigger
             uniqe
-            description
+            description,
+            icon {
+              url
+            }
           }
         }
         running {
@@ -171,8 +202,11 @@ export const query = graphql`
           forerunner
         }
         growthRate {
-          int
           speed
+          stamina
+          power
+          guts
+          int
         }
         distance {
           long
