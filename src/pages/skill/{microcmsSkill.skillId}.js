@@ -2,39 +2,58 @@
  * スキル詳細ページ
  */
 import React from "react"
-import { graphql, Link } from "gatsby"
-import { chakra, Image, Flex, Box, Text, Table,
-  Tbody, Tr, Th, Td, VisuallyHidden,
-  Heading, Tag,　HStack } from "@chakra-ui/react"
+import { graphql } from "gatsby"
+import { Image, Flex, Box, Text, Tag,
+  Tooltip,
+  Heading,
+  useColorModeValue } from "@chakra-ui/react"
 
 import SEO from "../../components/seo"
 import Layout from "../../components/layout"
+import CharacterList from "../../components/character/character-list"
+import SectionTitle from "../../components/parts/section-title"
+import SkillTrigger from '../../components/parts/skill-trigger'
 
-const SkillDetailPage = ({ data }) =>  {
+const SkillDetailPage = ({ data: { skill, characters } }) =>  {
   const frontMatter = {
-    title: data.microcmsSkill.name || 'ウマ娘',
-    description: `スキル「${data.microcmsSkill.name}」の詳細情報`
+    title: skill.name || 'スキル詳細',
+    description: `スキル「${skill.name}」の詳細情報`
   }
-console.log(data.microcmsSkill.id)
+
+  const pointColor = useColorModeValue(
+    (skill.rare || skill.unique) ? "black": "orange.400",
+    (skill.rare || skill.unique) ? "yellow.300": "white"
+  )
+  
   return (
     <Layout frontMatter={frontMatter}>
       <SEO {...frontMatter} />
-      <Flex align="center" as="header" mt="2"  mb="2" order="1">
-        <Image src={data.microcmsSkill.icon?.url} 
+      <Flex align="center" as="header" mt="2"  mb="2">
+        <Image src={skill.icon?.url} 
           boxSize="40px"
           objectFit="cover" 
+          order="1"
         />
-        <Heading order="2" size="md" ml="2">
-          {data.microcmsSkill.name}
-        </Heading>
+        <Flex order="2" ml="2" justify="space-between" width="100%">
+          <Heading size="md">
+            {skill.name}
+          </Heading>
+          {skill.unique && <Tag>固有</Tag>}
+          {skill.point > 0 && 
+            <Tooltip hasArrow label="スキルPt">
+              <Tag color={pointColor}>{skill.point}</Tag>
+            </Tooltip>
+          }
+        </Flex>
       </Flex>
-      <Text fontSize="sm">{data.microcmsSkill.description}</Text>
+      <Text fontSize="sm">{skill.description}</Text>
 
-      {data.allMicrocmsCharacter.edges.map(({ node }) => (
-        <Box key={node.characterId}>
-          <Text fontWeight="bold">{node.name}</Text>
-        </Box>
-      ))}
+      <SkillTrigger showTrigger={true} trigger={skill.trigger} />
+      
+      <Box as="section" mt="6">
+        <SectionTitle>所持ウマ娘</SectionTitle>
+        <CharacterList characters={characters} />
+      </Box>
     </Layout>
   )
 }
@@ -43,19 +62,20 @@ export default SkillDetailPage
 
 export const query = graphql`
   query($id: String!, $skillId: String!) {
-    microcmsSkill(id: { eq: $id }) {
+    skill: microcmsSkill(id: { eq: $id }) {
       id
       description
       name
       point
       rare
       skillId
-      uniqe
+      unique
+      trigger
       icon {
         url
       }
     }
-    allMicrocmsCharacter(
+    characters: allMicrocmsCharacter(
       filter: {skills: {elemMatch: {skill: {id: {eq: $skillId }}}}}
     ) {
       edges {
@@ -69,6 +89,10 @@ export const query = graphql`
             url
             height
             width
+          }
+          birthDay {
+            day
+            month
           }
         }
       }

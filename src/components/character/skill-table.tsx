@@ -19,7 +19,7 @@ const SkillTable = ({ skills }) => {
         p="6"
         textAlign="center"
         color="gray.500"
-      >No skill data</Box>
+      >No data</Box>
     )
   }
   return (

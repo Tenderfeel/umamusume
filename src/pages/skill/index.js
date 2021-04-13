@@ -1,9 +1,13 @@
+/**
+ * スキル一覧ページ
+ */
 import React from "react"
 import { graphql, Link } from "gatsby"
 import {
   Heading, 
   VStack, Box, SimpleGrid,
   Checkbox,
+  CheckboxGroup,
   useColorModeValue
 } from "@chakra-ui/react"
 import Layout from "../../components/layout"
@@ -17,7 +21,6 @@ const frontMatter = {
 }
 
 const SkillPage = ({ data }) => {
-  const hoverBg = useColorModeValue("blue.50", "whiteAlpha.300")
   const [selectedTriggers, setSelectedTriggers] = React.useState([])
 
   const filterd = data.allMicrocmsSkill.edges.filter(({ node }) => {
@@ -34,27 +37,28 @@ const SkillPage = ({ data }) => {
       <SEO {...frontMatter} />
       <Heading size="md" 
         mt="3" mb="6">スキル</Heading>
-      <SimpleGrid columns={[3, null, 5]}>
-        {
-          SkillTriggers.map(trigger => (
-            <Checkbox key={trigger}
-            name={trigger}
-            onChange={(e) => setSelectedTriggers(
-              e.target.checked ? 
-                  [ ...selectedTriggers, e.target.name ]
-                  : selectedTriggers.filter(i => i !== e.target.name)
-            )}>{trigger}</Checkbox>
-          ))
-        }
-      </SimpleGrid>
+      
+      <Box backgroundColor="gray.900" p="2" borderRadius="md" mb="2">
+        <Heading size="sm">フィルター</Heading>
+        <CheckboxGroup size="sm">
+        <SimpleGrid columns={[3, 4, 5]} p="2">
+          {
+            SkillTriggers.map(trigger => (
+              <Checkbox key={trigger}
+              name={trigger}
+              onChange={(e) => setSelectedTriggers(
+                e.target.checked ? 
+                    [ ...selectedTriggers, e.target.name ]
+                    : selectedTriggers.filter(i => i !== e.target.name)
+              )}>{trigger}</Checkbox>
+            ))
+          }
+        </SimpleGrid>
+        </CheckboxGroup>
+      </Box>
       <VStack spacing={2} align="stretch">
         {filterd.length ? filterd.map(({ node }) => (
-          <Box key={node.skillId} borderRadius="md"
-          _hover={{
-            background: hoverBg,
-          }}>
-            <Skill { ...node } showTrigger={Boolean(selectedTriggers.length)} />
-          </Box>
+          <Skill { ...node } key={node.skillId} showTrigger={Boolean(selectedTriggers.length)} />
         )) : <Box borderWidth="1px"
               borderRadius="md"
               p="6"
@@ -78,7 +82,7 @@ export const query = graphql`
           point
           rare
           trigger
-          uniqe
+          unique
           description,
           icon {
             url

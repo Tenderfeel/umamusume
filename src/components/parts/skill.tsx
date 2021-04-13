@@ -1,41 +1,62 @@
 /**
- * スキル
+ * スキル単体表示
  */
 
 import React from "react"
-import { Link } from "gatsby"
-import { Image, Text,
+import { Link, navigate } from "gatsby"
+import { Image, Text, Box,
   Grid, GridItem, Badge,
   useColorModeValue,
   HStack
 } from "@chakra-ui/react"
 
-const SkillTrigger = ({ showTrigger, trigger }) => {
+import SkillTrigger from './skill-trigger'
 
-  console.log(showTrigger)
-  if (showTrigger && trigger.length) {
-    return (
-      <HStack py="2">
-        {
-          trigger.map(text => (
-            <Badge colorScheme="green" key={text}>{text}</Badge>
-          ))
-        }
-      </HStack>
-    )
-  }
-
-  return null
+/**
+ * Interface of Skill
+ */
+interface Skill {
+ id: string,
+ skillId: string,
+ icon?: {
+   url: string
+ },
+ name: string,
+ description?: string,
+ point: number,
+ unique: boolean,
+ rare: boolean,
+ trigger: string[],
+ showTrigger: boolean
 }
 
+/**
+ * Skill
+ */
 const Skill = ({ 
   id, skillId, icon, name, description, 
-  point, uniqe, rare, trigger,
+  point, unique, rare, trigger,
   showTrigger
-}) => {
-  const borderColor = useColorModeValue("gray.300", "whiteAlpha.300")
+}: Skill) => {
+  let borderColor = useColorModeValue("gray.300", "whiteAlpha.300")
+  const pointColor = useColorModeValue(
+    (rare || unique) ? "black": "orange.400",
+    (rare || unique) ? "yellow.300": "white"
+  )
+  const hoverBg = useColorModeValue("blue.50", "whiteAlpha.300")
+
   const path = id || skillId
+
   return (
+    <Box borderRadius="md"
+      _hover={{
+        background: hoverBg,
+        cursor: 'pointer'
+      }}
+      onClick={e => {
+        e.preventDefault()
+        navigate(`/skill/${path}`)
+      }}>
     <Grid 
       templateRows="auto 1fr"
       templateColumns="80px auto 70px"
@@ -63,10 +84,12 @@ const Skill = ({
         borderLeft="1px"
         borderColor={borderColor}
         borderStyle="dashed"
+        color={pointColor}
       >
-        {uniqe ? '固有' : point}
+        {unique ? '固有' : point}
       </GridItem>
     </Grid>
+    </Box>
   )
 }
 

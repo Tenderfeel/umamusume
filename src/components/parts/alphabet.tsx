@@ -1,13 +1,13 @@
 import React from "react"
 import { Text } from "@chakra-ui/react"
 
-const Status = ({value}) => {
+const Alphabet = ({ value } : {value: string[]}) => {
   /**
   * A~Gのステータスに合わせた色を返す
   * @param {Array.<string>} value 
   * @return {string}
   */
-  const color = (value) => {
+  const color = (value: string[]): string => {
     if (!value) return ''
 
     switch (value[0]) {
@@ -35,4 +35,4 @@ const Status = ({value}) => {
   )
 }
 
-export default Status
+export default Alphabet

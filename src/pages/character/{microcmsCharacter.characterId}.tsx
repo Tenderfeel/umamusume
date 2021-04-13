@@ -5,14 +5,26 @@ import React from "react"
 import { graphql } from "gatsby"
 import { chakra, Image, Flex, Box, Text, Table,
   Tbody, Tr, Th, Td, VisuallyHidden,
-  Heading, Tag,　HStack } from "@chakra-ui/react"
+  Tag,　HStack } from "@chakra-ui/react"
 // import { StaticImage } from "gatsby-plugin-image"
 import Layout from "../../components/layout"
-import * as tableStyles from "../../components/table.module.css"
 
 import SEO from "../../components/seo"
 import Alphabet from '../../components/parts/alphabet'
 import SkillTable from '../../components/character/skill-table'
+import SectionTitle from "../../components/parts/section-title"
+
+const tableStyle = {
+  width: `var(--chakra-sizes-full)`,
+  borderCollapse: 'collapse',
+  'tr + tr': {
+    borderTopWidth: 1,
+    borderTopColor: 'whiteAlpha.300'
+  },
+  'th, td': {
+    textAlign: 'center'
+  }
+}
 
 const CharacterPage = ({ data }) => {
 
@@ -30,7 +42,7 @@ const CharacterPage = ({ data }) => {
     <Layout frontMatter={frontMatter}>
       <SEO {...frontMatter} />
       <Flex align="center" as="header" mt="2">
-        <Box order="2">
+        <Box order={2}>
           <chakra.h1 tabIndex={-1} outline={0}
             mb={6}
             fontWeight="bold"
@@ -60,12 +72,12 @@ const CharacterPage = ({ data }) => {
       </Flex>
       <VisuallyHidden as="div"><h2>適性</h2></VisuallyHidden>
       <Box marginTop="2" borderWidth="1px" borderRadius="lg" overflow="hidden">      
-      <Table className={tableStyles.statusTable}
-        sx={{
+      <Table sx={{
           th: {
             width: '20%'
           },
-          td: { width: 'calc(100% / 5)'}
+          td: { width: 'calc(100% / 5)'},
+          ...tableStyle
         }}
       >
         <Tbody>
@@ -126,8 +138,8 @@ const CharacterPage = ({ data }) => {
       
       <VisuallyHidden as="div"><h2>成長率</h2></VisuallyHidden>
       <Box marginTop="2" borderWidth="1px" borderRadius="lg" overflow="hidden">      
-        <Table className={tableStyles.statusTable}
-          sx={{'th': { width: 'calc(100% / 5)'}}}>
+        <Table
+          sx={{...tableStyle, 'th': { width: 'calc(100% / 5)'}}}>
           <Tbody>
             <Tr>
               <Th scope="col">スピード</Th>
@@ -147,16 +159,7 @@ const CharacterPage = ({ data }) => {
         </Table>
       </Box>
   
-      <Heading 
-        size="sm"
-        marginTop="6"
-        marginBottom="2"
-        borderLeft="solid 5px"
-        borderBottom="solid 1px"
-        borderColor="teal"
-        px="2"
-        py="1"
-      >スキル</Heading>
+      <SectionTitle>スキル</SectionTitle>
       
       <SkillTable skills={data.microcmsCharacter.skills} />
     </Layout>
@@ -188,7 +191,7 @@ export const query = graphql`
             point
             rare
             trigger
-            uniqe
+            unique
             description,
             icon {
               url

@@ -54,7 +54,9 @@ const Sidebar = () => {
       {mainNavLinks.map((item) => (
         <ListItem key={item.label} rounded="md" overflow="hidden">
             <Link to={item.href}
-              activeStyle={activeStyle}>
+              activeStyle={activeStyle}
+              partiallyActive={true}
+              >
               <Box px="3"
                 py="1"
                 fontSize="sm"
