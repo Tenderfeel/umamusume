@@ -16,6 +16,10 @@ const mainNavLinks = [
   {
     href: "/skill",
     label: "スキル"
+  },
+  {
+    href: "/support",
+    label: "サポートカード"
   }
 ]
 

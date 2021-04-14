@@ -45,7 +45,7 @@ const Skill = ({
   )
   const hoverBg = useColorModeValue("blue.50", "whiteAlpha.300")
 
-  const path = id || skillId
+  const path = skillId || id
 
   return (
     <Box borderRadius="md"
