@@ -13,7 +13,7 @@ import {
 
 import { StarIcon } from '@chakra-ui/icons'
 
-const CharacterList = ({ characters }) => {
+const CharacterList = ({ characters, showBirthDay = true }) => {
   const hoverBg = useColorModeValue("blue.50", "whiteAlpha.300")
   
   if (!characters.edges.length) {
@@ -58,9 +58,9 @@ const CharacterList = ({ characters }) => {
                   </Box>
                   <Badge>{node.primarySurface}</Badge>
                   <Badge>{node.primaryDistance}</Badge>
-                  <Text>
+                  { showBirthDay &&<Text>
                     <Badge fontSize="xs" mr="2">誕生日</Badge>{node.birthDay.month}月{node.birthDay.day}日
-                  </Text>
+                  </Text>}
                 </HStack>
               </GridItem>
             </Grid>

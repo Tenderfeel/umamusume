@@ -1,14 +1,13 @@
 /**
  * キャラ詳細ページ
  */
-import React from "react"
+import * as React from "react"
 import { graphql } from "gatsby"
-import { chakra, Image, Flex, Box, Text, Table,
+import { Heading, Image, Flex, Box, Text, Table,
   Tbody, Tr, Th, Td, VisuallyHidden,
   Tag,　HStack } from "@chakra-ui/react"
 // import { StaticImage } from "gatsby-plugin-image"
 import Layout from "../../components/layout"
-
 import SEO from "../../components/seo"
 import Alphabet from '../../components/parts/alphabet'
 import SkillTable from '../../components/character/skill-table'
@@ -43,13 +42,13 @@ const CharacterPage = ({ data }) => {
       <SEO {...frontMatter} />
       <Flex align="center" as="header" mt="2">
         <Box order={2}>
-          <chakra.h1 tabIndex={-1} outline={0}
+          <Heading as="h1" tabIndex={-1} outline={0}
             mb={6}
             fontWeight="bold"
             fontSize="xl"
             >
-              {frontMatter.title}
-          </chakra.h1>
+            {frontMatter.title}
+          </Heading>
           <HStack>
             <Text>
               <Tag mr="2">初期レア</Tag>{data.microcmsCharacter.rare}

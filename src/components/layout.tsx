@@ -4,13 +4,20 @@
  *
  * See: https://www.gatsbyjs.com/docs/use-static-query/
  */
-
-import * as React from "react"
+import * as React from 'react'
 import PropTypes from "prop-types"
 
 import PageContainer from "./page-container"
 
-const Layout = ({ children, frontMatter }) => {
+interface LayoutProps {
+  children?: any,
+  frontMatter: {
+    title?: string,
+    description?: string
+  }
+}
+
+const Layout = ({ children, frontMatter }: LayoutProps) => {
   return (
     <>
       <PageContainer frontMatter={frontMatter}>{children}</PageContainer>

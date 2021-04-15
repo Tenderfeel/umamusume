@@ -6,6 +6,7 @@ import {
  VStack, Box, SimpleGrid,
  Checkbox, Image,
  CheckboxGroup,
+ Tooltip,
  useColorModeValue
 } from "@chakra-ui/react"
 
@@ -33,32 +34,40 @@ const getCardBorderStyle = (rare: string[]): CardBorderStyle => {
   }
 }
 
-const SupportCard = ({ id, supportCardId, image, name, rare, type }) => {
+const SupportCard = (props) => {
+  const { 
+    id, supportCardId, image, name, rare, type,
+    enableLink = true
+  } = props
   const path = supportCardId || id
   const borderColor = useColorModeValue("gray.300", "whiteAlpha.300")
   const hoverBg = useColorModeValue("blue.50", "whiteAlpha.300")
-
-console.log(type)
+  const outlineColor = useColorModeValue("white", "gray.800")
+  const hoverStyle = enableLink ? {
+          border: `solid 2px green`,
+          boxShadow: `0 0 6px green`
+        } : {}
   return (
+    <Tooltip isDisabled={!enableLink}
+    hasArrow
+    label={`${name}`}
+    >
     <Box
       width={100}
-      
       onClick={e => {
+        if (!enableLink) return
         e.preventDefault()
-        navigate(`/skill/${path}`)
+        navigate(`/support/${path}`)
       }}
       sx={{
         padding: 1,
         borderRadius: 'md',
         position: "relative",
         overflow: "hidden",
-        cursor: 'pointer',
+        cursor: enableLink ? 'pointer' : 'inherit',
         border: `solid 2px`,
-        borderColor: 'gray.800',
-        _hover: {
-          border: `solid 2px green`,
-          boxShadow: `0 0 6px green`
-        },
+        borderColor: outlineColor,
+        _hover: hoverStyle,
         ...getCardBorderStyle(rare)
       }}
     >
@@ -78,6 +87,7 @@ console.log(type)
         }
       }}><GutsIcon /></Box>
     </Box>
+    </Tooltip>
   )
 }
 

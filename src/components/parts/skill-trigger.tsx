@@ -4,7 +4,7 @@ import { HStack, Badge } from "@chakra-ui/react"
 /**
  * Interface of SkillTriggerProps
  */
- interface SkillTriggerProps { 
+interface SkillTriggerProps { 
   showTrigger: boolean;
   trigger: string[] 
 }

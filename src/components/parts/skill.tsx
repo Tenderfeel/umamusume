@@ -2,7 +2,7 @@
  * スキル単体表示
  */
 
-import React from "react"
+import * as React from "react"
 import { Link, navigate } from "gatsby"
 import { Image, Text, Box,
   Grid, GridItem, Badge,

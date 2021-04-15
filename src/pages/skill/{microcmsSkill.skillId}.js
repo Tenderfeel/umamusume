@@ -4,7 +4,7 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { Image, Flex, Box, Text, Tag,
-  Tooltip,
+  Tooltip, SimpleGrid,
   Heading,
   useColorModeValue } from "@chakra-ui/react"
 
@@ -13,8 +13,9 @@ import Layout from "../../components/layout"
 import CharacterList from "../../components/character/character-list"
 import SectionTitle from "../../components/parts/section-title"
 import SkillTrigger from '../../components/parts/skill-trigger'
+import SupportCard from "../../components/parts/support-card"
 
-const SkillDetailPage = ({ data: { skill, characters } }) =>  {
+const SkillDetailPage = ({ data: { skill, characters, supportCards } }) =>  {
   const frontMatter = {
     title: skill.name || 'スキル詳細',
     description: `スキル「${skill.name}」の詳細情報`
@@ -52,7 +53,18 @@ const SkillDetailPage = ({ data: { skill, characters } }) =>  {
       
       <Box as="section" mt="6">
         <SectionTitle>所持ウマ娘</SectionTitle>
-        <CharacterList characters={characters} />
+        <CharacterList characters={characters} showBirthDay={false} />
+      </Box>
+      <Box as="section" mt="6">
+        <SectionTitle>サポートカード</SectionTitle>
+        
+        <SimpleGrid minChildWidth="100px" spacing={2}>
+        {
+          supportCards.nodes.map((node) => (
+            <SupportCard key={node.id} {...node}></SupportCard>
+          ))
+        }
+      </SimpleGrid>
       </Box>
     </Layout>
   )
@@ -94,6 +106,19 @@ export const query = graphql`
             day
             month
           }
+        }
+      }
+    }
+
+    supportCards: allMicrocmsSupportCard(filter: {skills: {elemMatch: {id: {eq: $skillId}}}}) {
+      nodes {
+        name
+        id
+        supportCardId
+        type
+        rare
+        image {
+          url
         }
       }
     }
