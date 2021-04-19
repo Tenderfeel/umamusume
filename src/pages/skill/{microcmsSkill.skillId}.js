@@ -14,6 +14,7 @@ import CharacterList from "../../components/character/character-list"
 import SectionTitle from "../../components/parts/section-title"
 import SkillTrigger from '../../components/parts/skill-trigger'
 import SupportCard from "../../components/parts/support-card"
+import Skill from '../../components/parts/skill'
 
 const SkillDetailPage = ({ data: { skill, characters, supportCards } }) =>  {
   const frontMatter = {
@@ -21,6 +22,7 @@ const SkillDetailPage = ({ data: { skill, characters, supportCards } }) =>  {
     description: `スキル「${skill.name}」の詳細情報`
   }
 
+  // レアと固有はポイントの色を変える
   const pointColor = useColorModeValue(
     (skill.rare || skill.unique) ? "black": "orange.400",
     (skill.rare || skill.unique) ? "yellow.300": "white"
@@ -51,6 +53,18 @@ const SkillDetailPage = ({ data: { skill, characters, supportCards } }) =>  {
 
       <SkillTrigger showTrigger={true} trigger={skill.trigger} />
       
+      { skill.upgrade &&
+        <Box as="section" mt="6">
+        <SectionTitle>上位スキル</SectionTitle>
+        <Skill {...skill.upgrade} />
+      </Box>}
+
+      { skill.downgrade &&
+      <Box as="section" mt="6">
+        <SectionTitle>下位スキル</SectionTitle>
+        <Skill {...skill.downgrade} />
+      </Box>}
+
       <Box as="section" mt="6">
         <SectionTitle>所持ウマ娘</SectionTitle>
         <CharacterList characters={characters} showBirthDay={false} />
@@ -83,6 +97,28 @@ export const query = graphql`
       skillId
       unique
       trigger
+      upgrade {
+        id
+        description
+        name
+        point
+        rare
+        unique
+        icon {
+          url
+        }
+      }
+      downgrade {
+        id
+        description
+        name
+        point
+        rare
+        unique
+        icon {
+          url
+        }
+      }
       icon {
         url
       }
