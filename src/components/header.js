@@ -7,7 +7,6 @@ import { useStaticQuery, graphql, Link } from "gatsby"
 import {
   chakra,
   Flex,
-  Box,
   IconButton,
   useColorMode,
   useColorModeValue
@@ -16,8 +15,7 @@ import { FaMoon, FaSun } from "react-icons/fa"
 
 const Header = () => {
   const ref = React.useRef(null)
-  const [y, setY] = React.useState(0)
-  const { height = 0 } = ref.current?.getBoundingClientRect() ?? {}
+  // const { height = 0 } = ref.current?.getBoundingClientRect() ?? {}
   const bg = useColorModeValue("teal.500", "teal.700")
   const text = useColorModeValue("dark", "light")
   const SwitchIcon = useColorModeValue(FaMoon, FaSun)
@@ -35,7 +33,6 @@ const Header = () => {
   return (
     <chakra.header
       ref={ref}
-      shadow={y > height ? "sm" : undefined}
       transition="box-shadow 0.2s"
       pos="fixed"
       top="0"

@@ -55,6 +55,6 @@ const sizes = {
   },
 }
 
-export default {
+export {
   sizes
 }

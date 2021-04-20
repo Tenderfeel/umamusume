@@ -1,7 +1,7 @@
 import { extendTheme } from "@chakra-ui/react"
 
 // Component style overrides
-import Table from "./components/table"
+import * as Table from "./components/table"
 
 const overrides = {
   variants: {},

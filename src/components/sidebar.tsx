@@ -20,6 +20,10 @@ const mainNavLinks = [
   {
     href: "/support",
     label: "サポートカード"
+  },
+  {
+    href: '/race',
+    label: 'レース'
   }
 ]
 

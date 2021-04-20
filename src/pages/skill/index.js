@@ -2,7 +2,7 @@
  * スキル一覧ページ
  */
 import React from "react"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import {
   Heading, 
   VStack, Box, SimpleGrid,
@@ -22,10 +22,12 @@ const frontMatter = {
 
 const SkillPage = ({ data }) => {
   const [selectedTriggers, setSelectedTriggers] = React.useState([])
+  const boxBgColor = useColorModeValue('gray.50','gray.900')
 
   const filterd = data.allMicrocmsSkill.edges.filter(({ node }) => {
     if (!node.trigger) return false
     if (!selectedTriggers.length) return true
+
     // 選択されたトリガーのいずれかがマッチするか？
     return selectedTriggers.some(trigger => {
       return node.trigger.includes(trigger)
@@ -38,7 +40,7 @@ const SkillPage = ({ data }) => {
       <Heading size="md" 
         mt="3" mb="6">スキル</Heading>
       
-      <Box backgroundColor="gray.900" p="2" borderRadius="md" mb="2">
+      <Box backgroundColor={boxBgColor} p="2" borderRadius="md" mb="2">
         <Heading size="sm">フィルター</Heading>
         <CheckboxGroup size="sm">
         <SimpleGrid columns={[3, 4, 5]} p="2">

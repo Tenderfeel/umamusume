@@ -32,8 +32,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `ウマ娘DB`,
+        short_name: `ウマ娘DB`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
@@ -63,6 +63,12 @@ module.exports = {
           },
           {
             endpoint: "racecourse"
+          },
+          {
+            endpoint: "race"
+          },
+          {
+            endpoint: "factor"
           }
         ],
       },
@@ -89,5 +95,21 @@ module.exports = {
         portalZIndex: 40,
       },
     },
+
+    {
+      resolve: `gatsby-plugin-alias-imports`,
+      options: {
+        alias: {
+          "@/src": "src",
+          "@/components": "src/components",
+          // "@/layouts": "src/layouts",
+          "@/pages": "src/pages",
+          "@/templates": "src/templates",
+        },
+        extensions: [
+          "js", "tsx", "ts"
+        ],
+      }
+    }
   ],
 }
