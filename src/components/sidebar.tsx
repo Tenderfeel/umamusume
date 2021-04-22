@@ -24,6 +24,10 @@ const mainNavLinks = [
   {
     href: '/race',
     label: 'レース'
+  },
+  {
+    href: '/course',
+    label: '競馬場'
   }
 ]
 

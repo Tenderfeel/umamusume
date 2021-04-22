@@ -61,7 +61,9 @@ const Race = ({
   distanceLabel,
   handed,
   qualification,
-  crown
+  crown,
+  season,
+  showSeason
 }: Race) => {
   const borderColor = useColorModeValue("gray.300", "whiteAlpha.300")
   const hoverBg = useColorModeValue("blue.50", "whiteAlpha.300")
@@ -82,6 +84,7 @@ const Race = ({
       templateAreas={`"tag name" "tag detail"`}
       gap="2"
       >
+      {/* クラシックとか */}
       <VStack gridArea="tag">
         {
           qualification.map(qua => (
@@ -93,6 +96,7 @@ const Race = ({
           ))
         }
       </VStack>
+      {/* タイトル */}
       <Flex gridArea="name" align="center">
         <GradeTag grade={grade} />
         <Text fontWeight="bold" px="1">
@@ -100,8 +104,14 @@ const Race = ({
         </Text>
         {!!crown.length && <Badge size="sm" colorScheme="red">{crown}</Badge>}
       </Flex>
-      <HStack gridArea="detail" justify="start"
-      fontSize="sm">
+      {/* 詳細 */}
+      <HStack 
+        gridArea="detail" 
+        justify="start"
+        fontSize={['xs', 'sm']}
+        spacing="1"
+      >
+        {(showSeason && season) && <Text>{season}</Text>}
         <Text>{racecourse?.shortName}</Text>
         <Text>{surface}</Text>
         <Text>{distance}m</Text>
