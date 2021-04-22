@@ -11,9 +11,10 @@ import Layout from "@/components/layout"
 import SEO from "@/components/seo"
 import SectionTitle from "@/components/parts/section-title"
 import Race from "@/components/parts/race"
+import NoData from '@/components/parts/nodata'
 
 const CourseDetailPage = ({ data: { course, race } }) => {
-  console.log(race)
+
   const frontMatter = {
     title: course?.name || '競馬場',
     description: `${course?.name}の詳細情報`
@@ -52,12 +53,7 @@ const CourseDetailPage = ({ data: { course, race } }) => {
       {
         race.nodes.length ? race.nodes.map((node) => (
           <Race { ...node } key={node.raceId} showSeason={true} />
-        )) : <Box borderWidth="1px"
-              borderRadius="md"
-              p="6"
-              textAlign="center"
-              color="gray.500"
-            >No data</Box>
+        )) : <NoData />
       }
       </VStack>
     </Layout>

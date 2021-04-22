@@ -101,6 +101,7 @@ module.exports = {
       options: {
         alias: {
           "@/src": "src",
+          "@/util": "src/util/",
           "@/components": "src/components",
           // "@/layouts": "src/layouts",
           "@/pages": "src/pages",

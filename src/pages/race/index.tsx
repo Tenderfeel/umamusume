@@ -21,6 +21,7 @@ import {
   CouseSelect,
   DistanceSelect
 } from "@/components/race/filter"
+import NoData from '@/components/parts/nodata'
 
 const frontMatter = {
   title: 'レース',
@@ -62,12 +63,7 @@ const RacePage = ({ data }) => {
       <VStack spacing={2} align="stretch">
       {filterd.length ? filterd.map(({ node }) => (
           <Race { ...node } key={node.raceId} />
-        )) : <Box borderWidth="1px"
-              borderRadius="md"
-              p="6"
-              textAlign="center"
-              color="gray.500"
-            >No data</Box>}
+        )) : <NoData />}
        </VStack>
     </Layout>
   )

@@ -12,17 +12,13 @@ import {
 } from "@chakra-ui/react"
 
 import { StarIcon } from '@chakra-ui/icons'
+import NoData from '@/components/parts/nodata'
 
 const CharacterList = ({ characters, showBirthDay = true }) => {
   const hoverBg = useColorModeValue("blue.50", "whiteAlpha.300")
   
   if (!characters.edges.length) {
-    return (<Box borderWidth="1px"
-        borderRadius="md"
-        p="6"
-        textAlign="center"
-        color="gray.500"
-      >No Data</Box>)
+    return (<NoData />)
   }
   
   return (

@@ -15,6 +15,7 @@ import SectionTitle from "../../components/parts/section-title"
 import SkillTrigger from '../../components/parts/skill-trigger'
 import SupportCard from "../../components/parts/support-card"
 import Skill from '../../components/parts/skill'
+import NoData from '@/components/parts/nodata'
 
 const SkillDetailPage = ({ data: { skill, characters, supportCards } }) =>  {
   const frontMatter = {
@@ -74,9 +75,9 @@ const SkillDetailPage = ({ data: { skill, characters, supportCards } }) =>  {
         
         <SimpleGrid minChildWidth="100px" spacing={2}>
         {
-          supportCards.nodes.map((node) => (
+          supportCards.nodes.length ? supportCards.nodes.map((node) => (
             <SupportCard key={node.id} {...node}></SupportCard>
-          ))
+          )) : <NoData />
         }
       </SimpleGrid>
       </Box>

@@ -10,10 +10,11 @@ import {
   CheckboxGroup,
   useColorModeValue
 } from "@chakra-ui/react"
-import Layout from "../../components/layout"
-import SEO from "../../components/seo"
-import Skill from '../../components/parts/skill'
-import { SkillTriggers } from '../../util/'
+import Layout from "@/components/layout"
+import SEO from "@/components/seo"
+import Skill from '@/components/parts/skill'
+import { SkillTriggers } from '@/util'
+import NoData from '@/components/parts/nodata'
 
 const frontMatter = {
   title: 'スキル',
