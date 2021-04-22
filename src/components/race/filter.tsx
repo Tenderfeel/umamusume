@@ -10,7 +10,7 @@ import {
 import { useStaticQuery, graphql } from "gatsby"
 
 // コースセレクトメニュー
-const CouseSelect = () => {
+const CouseSelect = ({ onCourseChange }) => {
   const { racecourses } = useStaticQuery(
     graphql`
       query {
@@ -25,7 +25,9 @@ const CouseSelect = () => {
   )
   
   return (
-    <Select placeholder="競馬場">
+    <Select placeholder="競馬場" onChange={(e) => {
+      onCourseChange(e.target.value)
+    }}>
     {
       racecourses.nodes.map(({shortName, racecourseId}) => (
         <option key={racecourseId}>{shortName}</option>
@@ -36,9 +38,11 @@ const CouseSelect = () => {
 }
 
 // 距離セレクトメニュー
-const DistanceSelect = () => {
+const DistanceSelect = ({ onDistanceChange }) => {
   return (
-    <Select placeholder="距離">
+    <Select placeholder="距離" onChange={(e) => {
+      onDistanceChange(e.target.value)
+    }}>
       <option>短距離</option>
       <option>マイル</option>
       <option>中距離</option>
@@ -48,9 +52,12 @@ const DistanceSelect = () => {
 }
 
 // 開催時期
-const SeasonSelect = () => {
+const SeasonSelect = ({ onSeasonChange }) => {
+
   return (
-    <Select placeholder="開催時期">
+    <Select placeholder="開催時期" onChange={(e) => {
+      onSeasonChange(e.target.value)
+    }}>
     {
       new Array(24).fill(null).map((v, index) => {
         const label = Math.floor(index / 2) + 1
@@ -73,14 +80,8 @@ const SeasonSelect = () => {
   )
 }
 
-const RaceFilter = (props) => {
-  return (
-    <HStack {...props}>
-      <SeasonSelect />
-      <CouseSelect />
-      <DistanceSelect />
-    </HStack>
-  )
+export  {
+  SeasonSelect,
+  CouseSelect,
+  DistanceSelect
 }
-
-export default RaceFilter
