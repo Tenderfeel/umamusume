@@ -6,9 +6,10 @@ import React from "react"
 import { graphql } from "gatsby"
 import {
   Heading, 
-  HStack, VStack, Box, SimpleGrid,
+  SimpleGrid, VStack, Box, 
   Checkbox,
   CheckboxGroup,
+  Accordion, AccordionItem, AccordionButton, AccordionIcon, AccordionPanel,
   useColorModeValue
 } from "@chakra-ui/react"
 
@@ -19,7 +20,9 @@ import Race from "@/components/parts/race"
 import {
   SeasonSelect,
   CouseSelect,
-  DistanceSelect
+  DistanceSelect,
+  QualificationSelect,
+  GradeSelect
 } from "@/components/race/filter"
 import NoData from '@/components/parts/nodata'
 
@@ -32,10 +35,15 @@ const RacePage = ({ data }) => {
   const [season, setSeason] = React.useState(null)
   const [course, setCourse] = React.useState(null)
   const [distance, setDistance] = React.useState(null)
+  const [qualification, setQualification] = React.useState(null)
+  const [grade, setGrade] = React.useState([])
 
   const filterd = data.allMicrocmsRace.edges.filter(({ node }) => {
-    if (!season && !course && !distance) return true
+    if (!season && !course && !distance && !qualification && !grade.length) return true
     let is = 0
+    if (qualification) {
+      is += node.qualification.includes(qualification)
+    }
     if (season) {
       is += node.season.includes(season)
     }
@@ -45,7 +53,10 @@ const RacePage = ({ data }) => {
     if (distance) {
       is += node.distanceLabel.includes(distance)
     }
-    return is >= (!!season + !!course + !!distance)
+    if (grade.length) {
+      is += grade.some(g => node.grade.includes(g))
+    }
+    return is >= (!!season + !!course + !!distance + !!qualification + !!grade.length)
   })
 
   return (
@@ -53,12 +64,26 @@ const RacePage = ({ data }) => {
       <SEO {...frontMatter} />
       <Heading size="md" 
         mt="3" mb="6">レース</Heading>
-
-      <HStack mb="2">
-        <SeasonSelect season={season} onSeasonChange={setSeason} />
-        <CouseSelect course={course} onCourseChange={setCourse} />
-        <DistanceSelect distance={distance} onDistanceChange={setDistance} />
-      </HStack>
+      <Accordion allowToggle size="sm">
+        <AccordionItem mb="2" borderLeftWidth="1px" borderRightWidth="1px">
+        <AccordionButton>
+          <Box as="h2" flex="1" textAlign="left">
+            絞り込み
+          </Box>
+          <AccordionIcon />
+        </AccordionButton>
+        <AccordionPanel>
+          <SimpleGrid gap="2" columns={[2, 4]}>
+            <QualificationSelect qualification={qualification} onQualificationChange={setQualification} />
+            <SeasonSelect season={season} onSeasonChange={setSeason} />
+            <CouseSelect course={course} onCourseChange={setCourse} />
+            <DistanceSelect distance={distance} onDistanceChange={setDistance} />
+          </SimpleGrid>
+          
+          <GradeSelect grade={grade} onGradeChange={setGrade} />
+        </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
 
       <VStack spacing={2} align="stretch">
       {filterd.length ? filterd.map(({ node }) => (

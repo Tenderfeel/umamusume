@@ -3,11 +3,13 @@
  */
 import React from "react"
 import {
-  HStack,
+  HStack, SimpleGrid,
   Select,
+  CheckboxGroup, Checkbox,
   useColorModeValue
 } from "@chakra-ui/react"
 import { useStaticQuery, graphql } from "gatsby"
+import { Grades } from '@/util/'
 
 // コースセレクトメニュー
 const CouseSelect = ({ onCourseChange }) => {
@@ -33,6 +35,19 @@ const CouseSelect = ({ onCourseChange }) => {
         <option key={racecourseId}>{shortName}</option>
       ))
     }
+    </Select>
+  )
+}
+
+// 出走資格セレクトメニュー
+const QualificationSelect = ({ onQualificationChange }) => {
+  return (
+    <Select placeholder="出走資格" onChange={(e) => {
+      onQualificationChange(e.target.value)
+    }}>
+      <option>ジュニア</option>
+      <option>クラシック</option>
+      <option>シニア</option>
     </Select>
   )
 }
@@ -80,8 +95,31 @@ const SeasonSelect = ({ onSeasonChange }) => {
   )
 }
 
+const GradeSelect = ({ grade, onGradeChange }) => {
+
+  return (
+    <CheckboxGroup>
+       <SimpleGrid columns={[3, 5]} p="2">
+       {
+            Grades.map(g => (
+              <Checkbox key={g}
+              name={g}
+              onChange={(e) => onGradeChange(
+                e.target.checked ? 
+                    [ ...grade, e.target.name ]
+                    : grade.filter(i => i !== e.target.name)
+              )}>{g}</Checkbox>
+            ))
+          }
+       </SimpleGrid>
+    </CheckboxGroup>
+  )
+}
+
 export  {
   SeasonSelect,
   CouseSelect,
-  DistanceSelect
+  DistanceSelect,
+  QualificationSelect,
+  GradeSelect
 }

@@ -24,3 +24,11 @@ export const SkillTriggers = [
   '掛かり',
   'レース場'
 ]
+
+export const Grades = [
+  'Pre-OP',
+  'OP',
+  'G III',
+  'G II',
+  'G I'
+]

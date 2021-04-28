@@ -8,6 +8,7 @@ import {
   VStack, Box, SimpleGrid,
   Checkbox,
   CheckboxGroup,
+  Accordion, AccordionItem, AccordionButton, AccordionIcon, AccordionPanel,
   useColorModeValue
 } from "@chakra-ui/react"
 import Layout from "@/components/layout"
@@ -41,24 +42,34 @@ const SkillPage = ({ data }) => {
       <Heading size="md" 
         mt="3" mb="6">スキル</Heading>
       
-      <Box backgroundColor={boxBgColor} p="2" borderRadius="md" mb="2">
-        <Heading size="sm">フィルター</Heading>
-        <CheckboxGroup size="sm">
-        <SimpleGrid columns={[3, 4, 5]} p="2">
-          {
-            SkillTriggers.map(trigger => (
-              <Checkbox key={trigger}
-              name={trigger}
-              onChange={(e) => setSelectedTriggers(
-                e.target.checked ? 
-                    [ ...selectedTriggers, e.target.name ]
-                    : selectedTriggers.filter(i => i !== e.target.name)
-              )}>{trigger}</Checkbox>
-            ))
-          }
-        </SimpleGrid>
-        </CheckboxGroup>
-      </Box>
+      <Accordion allowToggle size="sm">
+        <AccordionItem mb="2" borderLeftWidth="1px" borderRightWidth="1px">
+          <AccordionButton>
+            <Box as="h2" flex="1" textAlign="left">
+              絞り込み
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel>
+            <CheckboxGroup size="sm">
+              <SimpleGrid columns={[3, 4, null, 5]}>
+                {
+                  SkillTriggers.map(trigger => (
+                    <Checkbox key={trigger}
+                    name={trigger}
+                    onChange={(e) => setSelectedTriggers(
+                      e.target.checked ? 
+                          [ ...selectedTriggers, e.target.name ]
+                          : selectedTriggers.filter(i => i !== e.target.name)
+                    )}>{trigger}</Checkbox>
+                  ))
+                }
+              </SimpleGrid>
+            </CheckboxGroup>
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
+
       <VStack spacing={2} align="stretch">
         {filterd.length ? filterd.map(({ node }) => (
           <Skill { ...node } key={node.skillId} showTrigger={Boolean(selectedTriggers.length)} />
