@@ -87,7 +87,7 @@ const RacePage = ({ data }) => {
 
       <VStack spacing={2} align="stretch">
       {filterd.length ? filterd.map(({ node }) => (
-          <Race { ...node } key={node.raceId} />
+          <Race { ...node } key={node.raceId} showSeason={true} />
         )) : <NoData />}
        </VStack>
     </Layout>

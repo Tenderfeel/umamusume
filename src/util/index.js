@@ -32,3 +32,17 @@ export const Grades = [
   'G II',
   'G I'
 ]
+
+export const RaceCouseIdMap = {
+  'ooi': '大井',
+  'kokura': '小倉',
+  'hanshin': '阪神',
+  'kyoto': '京都',
+  'chukyo': '中京',
+  'nakayama': '中山',
+  'tokyo': '東京',
+  'niigata': '新潟',
+  'fukushima': '福島',
+  'hakodate': '函館',
+  'sapporo': '札幌'
+}

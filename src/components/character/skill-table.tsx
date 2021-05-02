@@ -9,17 +9,13 @@ import { Text, Table, Box,
 } from "@chakra-ui/react"
 
 import Skill from '../parts/skill'
+import NoData from '@/components/parts/nodata'
 
 const SkillTable = ({ skills }) => {
 
   if (!skills.length) {
     return (
-      <Box borderWidth="1px"
-        borderRadius="md"
-        p="6"
-        textAlign="center"
-        color="gray.500"
-      >No data</Box>
+      <NoData />
     )
   }
   return (

@@ -4,6 +4,9 @@ import { extendTheme } from "@chakra-ui/react"
 import * as Table from "./components/table"
 
 const overrides = {
+  fontSizes: {
+    xxs: "0.65rem",
+  },
   variants: {},
   components: {
     Table,

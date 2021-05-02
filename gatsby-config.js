@@ -53,22 +53,32 @@ module.exports = {
         serviceId: "umamusume",
         apis: [
           {
+            // ウマ娘
             endpoint: "character",
           },
           {
+            // スキル
             endpoint: "skill"
           },
           {
+            // サポートカード
             endpoint: "support-card"
           },
           {
+            // 競馬場
             endpoint: "racecourse"
           },
           {
+            // レース
             endpoint: "race"
           },
           {
+            // 因子
             endpoint: "factor"
+          },
+          {
+            // 育成目標
+            endpoint: "goals"
           }
         ],
       },

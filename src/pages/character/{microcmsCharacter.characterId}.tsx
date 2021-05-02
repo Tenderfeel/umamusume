@@ -4,14 +4,16 @@
 import * as React from "react"
 import { graphql } from "gatsby"
 import { Heading, Image, Flex, Box, Text, Table,
-  Tbody, Tr, Th, Td, VisuallyHidden,
+  Tbody, Tr, Th, Td, VisuallyHidden, Link,
   Tag,　HStack } from "@chakra-ui/react"
+import { ExternalLinkIcon, StarIcon } from '@chakra-ui/icons'
 // import { StaticImage } from "gatsby-plugin-image"
-import Layout from "../../components/layout"
-import SEO from "../../components/seo"
-import Alphabet from '../../components/parts/alphabet'
-import SkillTable from '../../components/character/skill-table'
-import SectionTitle from "../../components/parts/section-title"
+import Layout from "@/components/layout"
+import SEO from "@/components/seo"
+import Alphabet from '@/components/parts/alphabet'
+import SkillTable from '@/components/character/skill-table'
+import SectionTitle from "@/components/parts/section-title"
+import Goals from "@/components/character/goals"
 
 const tableStyle = {
   width: `var(--chakra-sizes-full)`,
@@ -43,31 +45,44 @@ const CharacterPage = ({ data }) => {
       <Flex align="center" as="header" mt="2">
         <Box order={2}>
           <Heading as="h1" tabIndex={-1} outline={0}
-            mb={6}
+            mb={3}
             fontWeight="bold"
             fontSize="xl"
             >
             {frontMatter.title}
           </Heading>
-          <HStack>
-            <Text>
-              <Tag mr="2">初期レア</Tag>{data.microcmsCharacter.rare}
-            </Text>
-            <Text>
-              <Tag mr="2">誕生日</Tag>{birthDay.month}月{birthDay.day}日
-            </Text>
-            <Text>
-              <Tag mr="2">世代</Tag>{data.microcmsCharacter.generation}年
-            </Text>
+          <HStack mb="2">
+            <Link href={data.microcmsCharacter.netkeiba} isExternal
+              fontSize="sm">
+              netkeiba.com <ExternalLinkIcon mx="2px" />
+            </Link>
+          </HStack>
+          <HStack spacing="1">
+            <Flex fontSize={['xs', 'sm']} align="center">
+              <Tag mr={[1, 2]} fontSize={['xs', 'sm']} px={[1, 2]}>
+                誕生日</Tag>{birthDay.month}月{birthDay.day}日
+            </Flex>
+            <Flex fontSize={['xs', 'sm']} align="center">
+              <Tag mr={[1, 2]} fontSize={['xs', 'sm']} px={[1, 2]}>
+                世代</Tag>{data.microcmsCharacter.generation}年
+            </Flex>
           </HStack>
         </Box>
-        <Image
-          src={data.microcmsCharacter.thumbnail.url}
-          boxSize="100px"
-          objectFit="contain"
-          mr={2}
-          alt=""
-        />
+        <Box mr={2}>
+          <Image
+            src={data.microcmsCharacter.thumbnail.url}
+            boxSize="100px"
+            objectFit="contain"
+            alt=""
+          />
+          <HStack justify="center" spacing="0" area-label="初期レア">
+          {
+            new Array(Number(data.microcmsCharacter.rare)).fill(null).map((d, i) => (
+              <StarIcon key={i} boxSize={3} color="yellow.400" />
+            ))
+          }
+          </HStack>
+        </Box>
       </Flex>
       <VisuallyHidden as="div"><h2>適性</h2></VisuallyHidden>
       <Box marginTop="2" borderWidth="1px" borderRadius="lg" overflow="hidden">      
@@ -161,6 +176,13 @@ const CharacterPage = ({ data }) => {
       <SectionTitle>スキル</SectionTitle>
       
       <SkillTable skills={data.microcmsCharacter.skills} />
+
+      <SectionTitle>
+        育成目標
+        {data.microcmsGoals?.scenario && <Text display="inline">（{data.microcmsGoals.scenario}）</Text>}
+      </SectionTitle>
+
+      <Goals goals={data.microcmsGoals?.goals} />
     </Layout>
   )
 }
@@ -168,59 +190,99 @@ const CharacterPage = ({ data }) => {
 export default CharacterPage
 
 export const query = graphql`
-  query($id: String!) {
+  query($id: String!, $characterId: String!) {
     microcmsCharacter(id: { eq: $id }) {
-        name
-        rare
-        thumbnail {
-          url
-          height
-          width
-        }
-        generation
-        surface {
-          dart
-          turf
-        }
-        skills {
-          awakeLv
-          skill {
-            id
-            name
-            point
-            rare
-            trigger
-            unique
-            description,
-            icon {
-              url
-            }
+      name
+      rare
+      netkeiba
+      thumbnail {
+        url
+        height
+        width
+      }
+      generation
+      surface {
+        dart
+        turf
+      }
+      skills {
+        awakeLv
+        skill {
+          id
+          name
+          point
+          rare
+          trigger
+          unique
+          description,
+          icon {
+            url
           }
         }
-        running {
-          ahead
-          escape
-          pursuer
-          forerunner
-        }
-        growthRate {
-          speed
-          stamina
-          power
-          guts
-          int
-        }
-        distance {
-          long
-          middle
-          mile
-          short
-        }
-        birthDay {
-          day
-          month
-        }
-        characterId
       }
+      running {
+        ahead
+        escape
+        pursuer
+        forerunner
+      }
+      growthRate {
+        speed
+        stamina
+        power
+        guts
+        int
+      }
+      distance {
+        long
+        middle
+        mile
+        short
+      }
+      birthDay {
+        day
+        month
+      }
+      characterId
+      materials {
+        handed
+        grade
+        fun
+        distanceLabel
+        distance
+        id
+        name
+        qualification
+        season
+        surface
+        racecourse {
+          id
+        }
+      }
+    }
+    microcmsGoals(character: {id: {eq: $characterId}}) {
+      id
+      scenario
+      goals {
+        event
+        eventTurn
+        turn
+        race {
+          name
+          id
+          distance
+          distanceLabel
+          fun
+          grade
+          handed
+          season
+          surface
+          qualification
+          racecourse {
+            id
+          }
+        }
+      }
+    }
   }
 `

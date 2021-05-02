@@ -27,7 +27,7 @@ const CouseSelect = ({ onCourseChange }) => {
   )
   
   return (
-    <Select placeholder="競馬場" onChange={(e) => {
+    <Select placeholder="競馬場" size="sm" onChange={(e) => {
       onCourseChange(e.target.value)
     }}>
     {
@@ -42,7 +42,7 @@ const CouseSelect = ({ onCourseChange }) => {
 // 出走資格セレクトメニュー
 const QualificationSelect = ({ onQualificationChange }) => {
   return (
-    <Select placeholder="出走資格" onChange={(e) => {
+    <Select placeholder="出走資格" size="sm" onChange={(e) => {
       onQualificationChange(e.target.value)
     }}>
       <option>ジュニア</option>
@@ -55,7 +55,7 @@ const QualificationSelect = ({ onQualificationChange }) => {
 // 距離セレクトメニュー
 const DistanceSelect = ({ onDistanceChange }) => {
   return (
-    <Select placeholder="距離" onChange={(e) => {
+    <Select placeholder="距離" size="sm" onChange={(e) => {
       onDistanceChange(e.target.value)
     }}>
       <option>短距離</option>
@@ -70,7 +70,7 @@ const DistanceSelect = ({ onDistanceChange }) => {
 const SeasonSelect = ({ onSeasonChange }) => {
 
   return (
-    <Select placeholder="開催時期" onChange={(e) => {
+    <Select placeholder="開催時期" size="sm" onChange={(e) => {
       onSeasonChange(e.target.value)
     }}>
     {
