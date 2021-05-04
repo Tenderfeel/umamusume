@@ -26,6 +26,10 @@ const mainNavLinks = [
     label: 'レース'
   },
   {
+    href: '/mission',
+    label: '限定ミッション'
+  },
+  {
     href: '/course',
     label: '競馬場'
   }

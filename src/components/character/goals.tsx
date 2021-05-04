@@ -72,16 +72,14 @@ const EventBox = ({ event, turn }) => {
   )
 }
 
+// メイン
 const Goals = ({ goals }) => {
   if (!goals || !goals.length) {
     return (
       <NoData />
     )
   }
-
-
-  console.log(goals)
-
+  // 最後のイベントはターンを表示しない
    return (
      <VStack spacing={2} align="stretch">
      {
@@ -91,7 +89,7 @@ const Goals = ({ goals }) => {
 
             {goal.race && <Race {...goal.race} />}
             
-            <Turn turn={goal.turn} />
+            {index + 1 < goals.length && <Turn turn={goal.turn} />}
           </Box>
        ))
      }

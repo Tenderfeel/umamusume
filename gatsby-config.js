@@ -79,6 +79,9 @@ module.exports = {
           {
             // 育成目標
             endpoint: "goals"
+          },
+          {
+            endpoint: "mission"
           }
         ],
       },
@@ -116,6 +119,7 @@ module.exports = {
           // "@/layouts": "src/layouts",
           "@/pages": "src/pages",
           "@/templates": "src/templates",
+          "@/images": "src/images"
         },
         extensions: [
           "js", "tsx", "ts"

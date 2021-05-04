@@ -1,0 +1,10 @@
+<svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="1" y="1" width="42" height="42" rx="8" fill="url(#stamina_icon_linear)" stroke="#E94F39" stroke-width="2"/>
+<path d="M8.99997 15.0001C13.5 7.68811 20 11.4998 22 15.0001C23.5 11.9999 29.808 7.50011 34.9999 14.9998C40.1919 22.4995 26 31 21.9999 34C18 31 4.49991 22.312 8.99997 15.0001Z" fill="white"/>
+<defs>
+<linearGradient id="stamina_icon_linear" x1="22" y1="0" x2="22" y2="44" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FE8878"/>
+<stop offset="1" stop-color="#FF6B57"/>
+</linearGradient>
+</defs>
+</svg>

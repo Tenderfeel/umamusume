@@ -10,7 +10,11 @@ import {
  useColorModeValue
 } from "@chakra-ui/react"
 
-import GutsIcon from "../../images/guts.svg"
+import GutsIcon from "@/images/guts.svg"
+import SpeedIcon from "@/images/speed.svg"
+import IntIcon from "@/images/int.svg"
+import PowerIcon from "@/images/power.svg"
+import StaminaIcon from "@/images/stamina.svg"
 
 interface SupportCard {
   id: string,
@@ -25,6 +29,7 @@ interface CardBorderStyle {
   background: string
 }
 
+// カード枠線スタイル
 const getCardBorderStyle = (rare: string[]): CardBorderStyle => {
   switch (rare[0]) {
     case 'SSR':
@@ -34,6 +39,33 @@ const getCardBorderStyle = (rare: string[]): CardBorderStyle => {
   }
 }
 
+interface TypeIconProps {
+  type: string
+}
+
+// タイプ別アイコン
+const TypeIcon = ({ type }: Required<TypeIconProps>) => {
+
+  return (
+    <Box sx={{
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        width: 6,
+        'svg': {
+          width: '100%'
+        }
+      }}>
+      {type === 'スピード' && <SpeedIcon />}
+      {type === 'スタミナ' && <StaminaIcon />}
+      {type === 'パワー' && <PowerIcon />}
+      {type === '根性' && <GutsIcon />}
+      {type === '賢さ' && <IntIcon />}
+    </Box>
+  )
+}
+
+// メイン
 const SupportCard = (props) => {
   const { 
     id, supportCardId, image, name, rare, type,
@@ -47,6 +79,7 @@ const SupportCard = (props) => {
           border: `solid 2px green`,
           boxShadow: `0 0 6px green`
         } : {}
+  
   return (
     <Tooltip isDisabled={!enableLink}
     hasArrow
@@ -77,15 +110,7 @@ const SupportCard = (props) => {
         borderRadius="md"
         sx={{}} 
       />
-      <Box sx={{
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        width: 6,
-        'svg': {
-          width: '100%'
-        }
-      }}><GutsIcon /></Box>
+      <TypeIcon type={type.toString()} />
     </Box>
     </Tooltip>
   )

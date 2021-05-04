@@ -15,6 +15,7 @@ import SectionTitle from "../../components/parts/section-title"
 import Skill from '../../components/parts/skill'
 
 
+// メイン
 const SupportCardPage = ({ data }) => {
   const frontMatter = {
     title: data.microcmsSupportCard.name || 'サポートカード詳細',
@@ -47,6 +48,9 @@ const SupportCardPage = ({ data }) => {
         </Box>
         <Table sx={{
           gridArea: 'status',
+          'th': {
+            w: "6rem"
+          }
         }}>
           <Tbody>
             <Tr>

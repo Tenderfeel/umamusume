@@ -15,6 +15,13 @@ import SkillTable from '@/components/character/skill-table'
 import SectionTitle from "@/components/parts/section-title"
 import Goals from "@/components/character/goals"
 
+import GutsIcon from "@/images/guts.svg"
+import SpeedIcon from "@/images/speed.svg"
+import IntIcon from "@/images/int.svg"
+import PowerIcon from "@/images/power.svg"
+import StaminaIcon from "@/images/stamina.svg"
+
+
 const tableStyle = {
   width: `var(--chakra-sizes-full)`,
   borderCollapse: 'collapse',
@@ -153,14 +160,27 @@ const CharacterPage = ({ data }) => {
       <VisuallyHidden as="div"><h2>成長率</h2></VisuallyHidden>
       <Box marginTop="2" borderWidth="1px" borderRadius="lg" overflow="hidden">      
         <Table
-          sx={{...tableStyle, 'th': { width: 'calc(100% / 5)'}}}>
+          sx={{...tableStyle, 
+            'th': { width: 'calc(100% / 5)', py: '0.3rem'},
+            'svg': {margin: '0 auto'}
+          }}>
           <Tbody>
             <Tr>
-              <Th scope="col">スピード</Th>
-              <Th scope="col">スタミナ</Th>
-              <Th scope="col">パワー</Th>
-              <Th scope="col">根性</Th>
-              <Th scope="col">賢さ</Th>
+              <Th scope="col">
+                <SpeedIcon title="スピード" width={32} />
+              </Th>
+              <Th scope="col">
+                <StaminaIcon title="スタミナ" width={32} />
+              </Th>
+              <Th scope="col">
+                <PowerIcon title="パワー" width={32} />
+              </Th>
+              <Th scope="col">
+                <GutsIcon title="根性" width={32} />
+              </Th>
+              <Th scope="col">
+                <IntIcon title="賢さ" width={32} />
+              </Th>
             </Tr>
             <Tr>
               <Td>{data.microcmsCharacter.growthRate.speed || 0}%</Td>
